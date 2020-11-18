@@ -20,4 +20,6 @@ export default Env.rules({
   APP_KEY: Env.schema.string(),
   APP_NAME: Env.schema.string(),
   NODE_ENV: Env.schema.enum(['development', 'production', 'testing'] as const),
+  DB_NAME: Env.schema.string(),
+  DB_DEBUG: Env.schema.boolean(),
 })

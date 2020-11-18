@@ -1,7 +1,15 @@
 {
-  "extends": ["plugin:adonis/typescriptApp", "prettier", "prettier/@typescript-eslint"],
-  "plugins": ["prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:adonis/typescriptApp"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
-    "prettier/prettier": ["error"]
+    "@typescript-eslint/await-thenable": "error",
+    "max-len": ["error", 150]
   }
 }
