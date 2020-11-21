@@ -1,13 +1,14 @@
 import { DateTime } from 'luxon';
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
-import { Filterable } from 'App/Decorators/filterable.decorator';
-import { FilterableOptionsDto } from 'App/Dto/filterable-options.dto';
+import { column } from '@ioc:Adonis/Lucid/Orm';
+import { QueryWrapperOptionsDto } from 'App/Dto/query-wrapper-options.dto';
+import { InjectQueryWrapper } from 'App/Decorators/inject-query-wrapper';
+import ExtendedModel from 'App/Models/extended.model';
 
-@Filterable(FilterableOptionsDto.getFilterableOptions({
+@InjectQueryWrapper(QueryWrapperOptionsDto.getFilterableOptions({
   searchBy: [`title`],
   orderBy: [`created_at`],
 }))
-export default class MovieModel extends BaseModel {
+export default class MovieModel extends ExtendedModel {
   public static table: string = `movies`;
 
   @column({ isPrimary: true })

@@ -1,4 +1,4 @@
-export class FilterableOptionsDto {
+export class QueryWrapperOptionsDto {
   public searchBy: string[];
 
   public orderBy: string[];
@@ -8,8 +8,8 @@ export class FilterableOptionsDto {
       searchBy?: string[];
       orderBy?: string[];
     }
-  ): FilterableOptionsDto {
-    const instance = new FilterableOptionsDto();
+  ): QueryWrapperOptionsDto {
+    const instance = new QueryWrapperOptionsDto();
     instance.searchBy = options.searchBy ?? [];
     instance.orderBy = options.orderBy ?? [];
     return instance;
