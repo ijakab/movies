@@ -11,6 +11,8 @@ import { QueryWrapperOptionsDto } from 'App/Dto/query-wrapper-options.dto';
 // On even bigger project, we would need to use document oriented db and adapt this.
 
 export class QueryWrapper<Model> {
+  private fallbackFilters: FilterQueryDto;
+
   constructor (
     private queryBuilder: ModelQueryBuilderContract<any, any>,
     private queryWrapperOptionsDto: QueryWrapperOptionsDto,
@@ -24,11 +26,12 @@ export class QueryWrapper<Model> {
   }
 
   public async standardPagination (
-    filterQueryDto: FilterQueryDto
+    filterQueryDto?: FilterQueryDto
   ): Promise<SimplePaginatorContract<Model>> {
-    const page = filterQueryDto.page ?? filterConfig.defaultPage;
-    const limit = filterQueryDto.limit && filterQueryDto.limit < filterConfig.maximumLimit && filterQueryDto.limit > filterConfig.minimumLimit
-      ? filterQueryDto.limit
+    const filters = this.checkFallback(filterQueryDto);
+    const page = filters.page ?? filterConfig.defaultPage;
+    const limit = filters.limit && filters.limit < filterConfig.maximumLimit && filters.limit > filterConfig.minimumLimit
+      ? filters.limit
       : filterConfig.defaultLimit;
 
     // we did not handle last-record pagination here
@@ -37,17 +40,27 @@ export class QueryWrapper<Model> {
     return await this.queryBuilder.paginate(page, limit);
   }
 
-  public standardFilters (filterQueryDto: FilterQueryDto): QueryWrapper<Model> {
-    if (filterQueryDto.orderByField) {
-      if (this.queryWrapperOptionsDto.orderBy.includes(filterQueryDto.orderByField)) {
-        void this.queryBuilder.orderBy(filterQueryDto.orderByField, filterQueryDto.orderByMode ?? `desc`);
+  public standardFilters (filterQueryDto?: FilterQueryDto): QueryWrapper<Model> {
+    const filters = this.checkFallback(filterQueryDto);
+    if (filters.orderByField) {
+      if (this.queryWrapperOptionsDto.orderBy.includes(filters.orderByField)) {
+        void this.queryBuilder.orderBy(filters.orderByField, filters.orderByMode ?? `desc`);
       }
     }
-    if (filterQueryDto.search) {
+    if (filters.search) {
       for (const searchField of this.queryWrapperOptionsDto.searchBy) {
-        void this.queryBuilder.where(searchField, `ilike`, `%${filterQueryDto.search}%`);
+        void this.queryBuilder.where(searchField, `ilike`, `%${filters.search}%`);
       }
     }
     return this;
+  }
+
+  public withFilterQueryDto (filters: FilterQueryDto): QueryWrapper<Model> {
+    this.fallbackFilters = filters;
+    return this;
+  }
+
+  private checkFallback (argumentFilters?: FilterQueryDto): FilterQueryDto {
+    return argumentFilters ? argumentFilters : this.fallbackFilters;
   }
 }

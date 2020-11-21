@@ -6,8 +6,9 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 export default class MovieController {
   public async index ({request}: HttpContextContract): Promise<GlobalFilterResponseDto<MovieModel>> {
     const loaded = await MovieModel.wrapQuery<MovieModel>()
-      .standardFilters(request.get())
-      .standardPagination(request.get());
+      .withFilterQueryDto(request.get())
+      .standardFilters()
+      .standardPagination();
     return GlobalFilterResponseDto.fromContract(loaded);
   }
 }
