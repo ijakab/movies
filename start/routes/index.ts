@@ -18,8 +18,10 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from '@ioc:Adonis/Core/Route';
+import './system';
+import Movie from 'App/Models/Movie';
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
+Route.get(`/`, async () => {
+  return await Movie.all();
+});

@@ -5,9 +5,9 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
-import { OrmConfig } from '@ioc:Adonis/Lucid/Orm'
-import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database'
+import Env from '@ioc:Adonis/Core/Env';
+import { OrmConfig } from '@ioc:Adonis/Lucid/Orm';
+import { DatabaseConfig } from '@ioc:Adonis/Lucid/Database';
 
 const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
   /*
@@ -20,7 +20,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
   | file.
   |
   */
-  connection: Env.get('DB_CONNECTION', 'pg'),
+  connection: Env.get(`DB_CONNECTION`, `pg`),
 
   connections: {
     /*
@@ -35,18 +35,19 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
     |
     */
     pg: {
-      client: 'pg',
+      client: `pg`,
       connection: {
-        host: Env.get('DB_HOST', '127.0.0.1'),
-        // @ts-ignore
-        socketPath: Env.getOrFail('DB_SOCKET_PATH'),
-        port: Env.get('DB_PORT', 5432),
-        user: Env.get('DB_USER', 'root'),
-        password: Env.get('DB_PASSWORD', 'root'),
-        database: Env.getOrFail('DB_NAME'),
+        host: Env.get(`DB_HOST`, `127.0.0.1`),
+        port: Env.get(`DB_PORT`, `5432`),
+        user: Env.get(`DB_USER`, `root`),
+        password: Env.get(`DB_PASSWORD`, `root`),
+        database: Env.get(`DB_NAME`),
+      },
+      migrations: {
+        tableName: 'adonis_schema'
       },
       healthCheck: true,
-      debug: JSON.parse(Env.get('DB_DEBUG')),
+      debug: Env.get(`DB_DEBUG`),
     },
   },
 
@@ -63,6 +64,6 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
   |
   */
   orm: {},
-}
+};
 
-export default databaseConfig
+export default databaseConfig;
