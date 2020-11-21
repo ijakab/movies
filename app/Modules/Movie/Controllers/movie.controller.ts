@@ -3,16 +3,16 @@ import MovieModel from 'App/Modules/Movie/Models/movie.model';
 import { GlobalFilterResponseDto } from 'App/Dto/global-filter-response.dto';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { ExtractScopes } from '@ioc:Adonis/Lucid/Model';
+import { paginateOnQuery } from 'App/Helpers/PaginateOnQuery';
 
 export default class MovieController {
   public async index ({request}: HttpContextContract): Promise<GlobalFilterResponseDto<MovieModel>> {
-    const loaded = await MovieModel.query()
+    const qb = MovieModel.query()
       .apply((scopes: ExtractScopes<MovieModel>) => {
         // @ts-ignore
         scopes.standardFilters(request.get());
-      })
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      .paginate(1, 10);
+      });
+    const loaded = await paginateOnQuery<MovieModel>(qb, request.get());
     return GlobalFilterResponseDto.fromContract(loaded);
   }
 }

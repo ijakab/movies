@@ -5,5 +5,11 @@ declare module '@ioc:Adonis/Core/Event' {
     orderByMode?: 'asc' | 'desc';
 
     search?: string;
+
+    page?: number;
+
+    limit?: number;
+
+    afterId?: number;
   }
 }
