@@ -1,5 +1,5 @@
 // import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import MovieModel from 'App/Models/movie.model';
+import MovieModel from 'App/Modules/Movie/Models/movie.model';
 import { GlobalFilterResponseDto } from 'App/Dto/global-filter-response.dto';
 
 export default class MovieController {

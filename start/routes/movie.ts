@@ -1,5 +1,6 @@
 import Route from "@ioc:Adonis/Core/Route";
+import { bindModuleController } from './bindModuleController';
 
 Route.group(() => {
-  Route.get(`/`, `movie.controller.index`);
+  bindModuleController(`/`, `Movie`, `movie`, `index`);
 }).prefix(`movies`);

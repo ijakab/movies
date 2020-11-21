@@ -90,7 +90,7 @@
     "@typescript-eslint/func-call-spacing": ["error"],
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
-    "max-len": ["error", 150],
+    "max-len": ["error", 160],
     "init-declarations": "off",
     "@typescript-eslint/init-declarations": ["error"],
     "keyword-spacing": "off",
