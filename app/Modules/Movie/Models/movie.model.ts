@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon';
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
+import { Filterable } from 'App/Decorators/filterable.decorator';
 
+@Filterable()
 export default class MovieModel extends BaseModel {
   public static table: string = `movies`;
 
