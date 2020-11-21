@@ -18,10 +18,5 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route';
 import './system';
-import Movie from 'App/Models/Movie';
-
-Route.get(`/`, async () => {
-  return await Movie.all();
-});
+import './movie'
