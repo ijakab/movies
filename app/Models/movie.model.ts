@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon';
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
 
-export default class Movie extends BaseModel {
+export default class MovieModel extends BaseModel {
+  public static table: string = `movies`;
+
   @column({ isPrimary: true })
   public id: number;
 
