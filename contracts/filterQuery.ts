@@ -3,5 +3,7 @@ declare module '@ioc:Adonis/Core/Event' {
     orderByField?: string;
 
     orderByMode?: 'asc' | 'desc';
+
+    search?: string;
   }
 }

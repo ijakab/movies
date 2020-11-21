@@ -9,7 +9,7 @@ export default class MovieController {
     const loaded = await MovieModel.query()
       .apply((scopes: ExtractScopes<MovieModel>) => {
         // @ts-ignore
-        scopes.filtered(request.get());
+        scopes.standardFilters(request.get());
       })
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       .paginate(1, 10);
