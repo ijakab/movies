@@ -17,10 +17,16 @@
     "@typescript-eslint/member-ordering": ["error"],
     "@typescript-eslint/naming-convention": ["error",
       {
-        "selector": ["variable", "parameter", "enumMember"],
+        "selector": ["variable", "parameter"],
         "format": ["camelCase"],
         "leadingUnderscore": "forbid",
         "trailingUnderscore": "forbid"
+      },
+      {
+        "selector": ["enumMember"],
+        "format": ["camelCase", "PascalCase", "snake_case"],
+        "leadingUnderscore": "allow",
+        "trailingUnderscore": "allow"
       },
       {
         "selector": ["property"],
@@ -113,7 +119,6 @@
     "no-magic-numbers": "off",
     "no-redeclare": ["error"],
     "no-shadow": ["error"],
-    "@typescript-eslint/no-throw-literal": ["error"],
     "no-throw-literal": "off",
     "@typescript-eslint/no-unused-expressions": ["error"],
     "no-unused-expressions": "off",
@@ -137,6 +142,8 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-throw-literal": "off"
   }
 }
