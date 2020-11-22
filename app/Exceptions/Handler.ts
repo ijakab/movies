@@ -26,6 +26,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
   // eslint-disable-next-line @typescript-eslint/require-await
   public async handle (error: any, {response}: HttpContextContract): Promise<void> {
+    Logger.error(error);
     if (error instanceof Error) {
       return response
         .status(error[`status`] || ResponseCodeEnum.InternalServerError)

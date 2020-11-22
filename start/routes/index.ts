@@ -19,4 +19,5 @@
 */
 
 import './system';
-import './movie'
+import './movie';
+import './comment';
