@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon';
 import { column } from '@ioc:Adonis/Lucid/Orm';
-import { QueryWrapperOptionsDto } from 'App/Dto/query-wrapper-options.dto';
-import { InjectQueryWrapper } from 'App/Decorators/inject-query-wrapper';
-import ExtendedModel from 'App/Models/extended.model';
+import { QueryWrapperOptionsDto } from 'App/Common/Dto/query-wrapper-options.dto';
+import { InjectQueryWrapper } from 'App/Common/Decorators/inject-query-wrapper';
+import ExtendedModel from 'App/Common/Models/extended.model';
 
 @InjectQueryWrapper(QueryWrapperOptionsDto.getFilterableOptions({
   searchBy: [`title`],

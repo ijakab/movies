@@ -2,8 +2,8 @@
 // and it would return wrapped query
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-import { QueryWrapperOptionsDto } from 'App/Dto/query-wrapper-options.dto';
-import { QueryWrapper } from 'App/Helpers/QueryWrapper';
+import { QueryWrapperOptionsDto } from 'App/Common/Dto/query-wrapper-options.dto';
+import { QueryWrapper } from 'App/Common/Helpers/QueryWrapper';
 
 // The correct definition should be:
 // export function Filterable<T extends typeof BaseModel> (): (model: T) => void {

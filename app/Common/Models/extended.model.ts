@@ -1,5 +1,5 @@
 import { BaseModel } from '@ioc:Adonis/Lucid/Orm';
-import { QueryWrapper } from 'App/Helpers/QueryWrapper';
+import { QueryWrapper } from 'App/Common/Helpers/QueryWrapper';
 
 // methods and attributes described here are provided through decorators
 // this is just helping typescript understand what properties exists

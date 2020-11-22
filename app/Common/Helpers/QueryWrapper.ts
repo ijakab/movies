@@ -2,7 +2,7 @@ import { ModelQueryBuilderContract } from '@ioc:Adonis/Lucid/Model';
 import { FilterQueryDto } from "@ioc:Adonis/Core/Event";
 import { SimplePaginatorContract } from "@ioc:Adonis/Lucid/DatabaseQueryBuilder";
 import filterConfig from 'Config/filter';
-import { QueryWrapperOptionsDto } from 'App/Dto/query-wrapper-options.dto';
+import { QueryWrapperOptionsDto } from 'App/Common/Dto/query-wrapper-options.dto';
 
 // The idea of this decorator is to add `standardFilters` scope to query builders
 // Which would accept standardized filters from client, and extend query builder appropriately
