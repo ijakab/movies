@@ -29,6 +29,9 @@ export default class MovieModel extends ExtendedModel {
   @column()
   public genre: string;
 
+  @column()
+  public imdb_id: string;
+
   @column.dateTime({ autoCreate: true })
   public created_at: DateTime;
 

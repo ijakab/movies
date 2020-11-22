@@ -12,6 +12,12 @@ export class MovieValidator extends BaseValidator <MovieModel> {
       genre: schema.string(),
       poster: schema.string(),
       year: schema.string(),
+      imdb_id: schema.string({}, [
+        rules.unique({
+          table: `movies`,
+          column: `imdb_id`,
+        }),
+      ]),
     });
   }
 }

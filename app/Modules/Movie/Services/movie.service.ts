@@ -16,6 +16,7 @@ export class MovieService extends BaseService <typeof MovieModel, MovieModel> {
     modelInstance.genre = movieDetails.Genre;
     modelInstance.poster = movieDetails.Poster;
     modelInstance.year = movieDetails.Year;
+    modelInstance.imdb_id = movieDetails.imdbID;
     await super.handleModelInstanceSave(modelInstance);
   }
 
