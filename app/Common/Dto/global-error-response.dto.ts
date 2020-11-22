@@ -1,6 +1,6 @@
 import { HttpError } from 'App/Exceptions/HttpError';
 import Env from '@ioc:Adonis/Core/Env';
-import { ResponseCodeEnum } from 'App/Enum/response-code.enum';
+import { ResponseCodeEnum } from 'App/Common/Enum/response-code.enum';
 
 export class GlobalErrorResponseDto {
   public message: string;

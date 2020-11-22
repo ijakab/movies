@@ -2,7 +2,7 @@ import Env from '@ioc:Adonis/Core/Env';
 import got from 'got';
 import customConfig from 'Config/custom';
 import { HttpError } from 'App/Exceptions/HttpError';
-import { ResponseCodeEnum } from 'App/Enum/response-code.enum';
+import { ResponseCodeEnum } from 'App/Common/Enum/response-code.enum';
 
 export async function getMovieDetails (title: string): Promise<any> {
   const omdbApiKey = Env.get(`OMDB_API_KEY`);

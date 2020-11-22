@@ -17,7 +17,7 @@ import Logger from '@ioc:Adonis/Core/Logger';
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { GlobalErrorResponseDto } from 'App/Common/Dto/global-error-response.dto';
-import { ResponseCodeEnum } from 'App/Enum/response-code.enum';
+import { ResponseCodeEnum } from 'App/Common/Enum/response-code.enum';
 
 export default class ExceptionHandler extends HttpExceptionHandler {
   constructor () {
