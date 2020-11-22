@@ -11,5 +11,8 @@ declare module '@ioc:Adonis/Core/Event' {
     limit?: number;
 
     afterId?: number;
+
+    // this is a filter for comments. It should not be in common dto, and this logic should be generalized, but this is for this small app
+    movieId?: number;
   }
 }

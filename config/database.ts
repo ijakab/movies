@@ -1,4 +1,5 @@
 /**
+/**
  * Config source: https://git.io/JesV9
  *
  * Feel free to let us know via PR, if you find something broken in this config
@@ -44,7 +45,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
         database: Env.get(`DB_NAME`),
       },
       migrations: {
-        tableName: 'adonis_schema'
+        tableName: `adonis_schema`,
       },
       healthCheck: true,
       debug: Env.get(`DB_DEBUG`),

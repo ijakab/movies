@@ -38,7 +38,6 @@ export class QueryWrapper<Model extends ExtendedModel> {
 
     // we did not handle last-record pagination here
     // but can be handled with filters by created_at, and page will always be the first one
-
     return await this.queryBuilder.paginate(page, limit);
   }
 

@@ -18,7 +18,9 @@ export default class CommentModel extends ExtendedModel {
   @column()
   public movie_id: number;
 
-  @belongsTo(() => MovieModel)
+  @belongsTo(() => MovieModel, {
+    foreignKey: `movie_id`,
+  })
   public movie: BelongsTo<typeof MovieModel>;
 
   @column()
