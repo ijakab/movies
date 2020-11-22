@@ -3,7 +3,7 @@ import MovieModel from 'App/Modules/Movie/Models/movie.model';
 import { getMovieDetails } from 'App/Modules/Movie/Helpers/get-movie-details.helper';
 
 // @ts-ignore
-export class MovieService extends BaseService <typeof MovieModel> {
+export class MovieService extends BaseService <typeof MovieModel, MovieModel> {
   constructor () {
     super(MovieModel);
   }
