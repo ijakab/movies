@@ -8,7 +8,8 @@ export async function getMovieDetails (title: string): Promise<any> {
   const omdbApiKey = Env.get(`OMDB_API_KEY`);
   const omdbBaseUrl = customConfig.omdbBaseUrl;
 
-  const response = await got.get(`${omdbBaseUrl}/?apiKey=${omdbApiKey}&t=${title}`);
+  const url = `${omdbBaseUrl}/?apiKey=${omdbApiKey}&t=${title}`;
+  const response = await got.get(url);
   const body = JSON.parse(response.body);
 
   if (body.Error) {

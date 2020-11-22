@@ -10,6 +10,10 @@ export class MovieService extends BaseService <typeof MovieModel> {
 
   public async handleModelInstanceSave (modelInstance: MovieModel): Promise<void> {
     const movieDetails = await getMovieDetails(modelInstance.title);
-    console.log(movieDetails);
+    modelInstance.title = movieDetails.Title;
+    modelInstance.director = movieDetails.Director;
+    modelInstance.genre = movieDetails.Genre;
+    modelInstance.poster = movieDetails.Poster;
+    modelInstance.year = movieDetails.Year;
   }
 }
