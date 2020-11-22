@@ -3,6 +3,7 @@ import { FilterQueryDto } from "@ioc:Adonis/Core/Event";
 import { SimplePaginatorContract } from "@ioc:Adonis/Lucid/DatabaseQueryBuilder";
 import filterConfig from 'Config/filter';
 import { QueryWrapperOptionsDto } from 'App/Common/Dto/query-wrapper-options.dto';
+import ExtendedModel from 'App/Common/Models/extended.model';
 
 // The idea of this is to add `standardFilters` scope to query builders
 // Which would accept standardized filters from client, and extend query builder appropriately
@@ -11,16 +12,16 @@ import { QueryWrapperOptionsDto } from 'App/Common/Dto/query-wrapper-options.dto
 // On even bigger project, we would need to use document oriented db and adapt this.
 // Similarly, standardized pagination is added and can be expanded
 
-export class QueryWrapper<Model> {
+export class QueryWrapper<Model extends ExtendedModel> {
   private fallbackFilters: FilterQueryDto;
 
   constructor (
-    private queryBuilder: ModelQueryBuilderContract<any, any>,
+    private queryBuilder: ModelQueryBuilderContract<Model>,
     private queryWrapperOptionsDto: QueryWrapperOptionsDto,
   ) {}
 
-  public static getInstance<Model> (
-    queryBuilder: ModelQueryBuilderContract<any, any>,
+  public static getInstance<Model extends ExtendedModel> (
+    queryBuilder: ModelQueryBuilderContract<Model>,
     queryWrapperOptions: QueryWrapperOptionsDto
   ): QueryWrapper<Model> {
     return new QueryWrapper(queryBuilder, queryWrapperOptions);
@@ -28,7 +29,7 @@ export class QueryWrapper<Model> {
 
   public async standardPagination (
     filterQueryDto?: FilterQueryDto
-  ): Promise<SimplePaginatorContract<Model>> {
+  ): Promise<SimplePaginatorContract<InstanceType<Model>>> {
     const filters = this.checkFallback(filterQueryDto);
     const page = filters.page ?? filterConfig.defaultPage;
     const limit = filters.limit && filters.limit < filterConfig.maximumLimit && filters.limit > filterConfig.minimumLimit
@@ -59,6 +60,10 @@ export class QueryWrapper<Model> {
   public withFilterQueryDto (filters: FilterQueryDto): QueryWrapper<Model> {
     this.fallbackFilters = filters;
     return this;
+  }
+
+  public getQueryBuilder (): ModelQueryBuilderContract<Model> {
+    return this.queryBuilder;
   }
 
   private checkFallback (argumentFilters?: FilterQueryDto): FilterQueryDto {
