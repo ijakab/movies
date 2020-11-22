@@ -3,9 +3,12 @@ import ExtendedModel from 'App/Common/Models/extended.model';
 import { SimplePaginatorContract } from '@ioc:Adonis/Lucid/DatabaseQueryBuilder';
 import { BaseValidator } from 'App/Common/Validators/base.validator';
 import { QueryWrapper } from 'App/Common/Helpers/QueryWrapper';
+import { TransactionClientContract } from "@ioc:Adonis/Lucid/Database";
 
 // this should not be two types, but we want to allow reusing logic over multiple models
 export abstract class BaseService <ModelType extends typeof ExtendedModel, Model extends ExtendedModel> {
+  protected databaseTransaction: TransactionClientContract;
+
   constructor (
     protected model: ModelType
   ) {}
@@ -33,8 +36,14 @@ export abstract class BaseService <ModelType extends typeof ExtendedModel, Model
   // use to validate / make additional action model instances
   // will be called on creation and update after merging params
   public async handleModelInstanceSave (modelInstance: Model): Promise<void> {
+    modelInstance.useTransaction(this.databaseTransaction);
     const validator = this.getValidator();
     await validator.validate(modelInstance);
+  }
+
+  public setTransaction (databaseTransaction: TransactionClientContract): this {
+    this.databaseTransaction = databaseTransaction;
+    return this;
   }
 
   protected abstract getValidator (): BaseValidator<Model>;

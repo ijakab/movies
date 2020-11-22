@@ -17,7 +17,9 @@ export abstract class BaseController <Service extends BaseService> {
   }
 
   public async create ({request}: HttpContextContract): Promise<GlobalResponseDto<BaseModel>> {
-    const instance = await this.service.create(request.post());
+    const instance = await this.service
+      .setTransaction(request.databaseTransaction)
+      .create(request.post());
     return GlobalResponseDto.fromData(instance);
   }
 }
