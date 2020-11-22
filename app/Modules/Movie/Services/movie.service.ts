@@ -1,6 +1,7 @@
 import { BaseService } from 'App/Common/Services/base.service';
 import MovieModel from 'App/Modules/Movie/Models/movie.model';
 import { getMovieDetails } from 'App/Modules/Movie/Helpers/get-movie-details.helper';
+import { MovieValidator } from 'App/Modules/Movie/Validators/movie.validator';
 
 // @ts-ignore
 export class MovieService extends BaseService <typeof MovieModel, MovieModel> {
@@ -15,5 +16,10 @@ export class MovieService extends BaseService <typeof MovieModel, MovieModel> {
     modelInstance.genre = movieDetails.Genre;
     modelInstance.poster = movieDetails.Poster;
     modelInstance.year = movieDetails.Year;
+    await super.handleModelInstanceSave(modelInstance);
+  }
+
+  protected getValidator (): MovieValidator {
+    return new MovieValidator();
   }
 }

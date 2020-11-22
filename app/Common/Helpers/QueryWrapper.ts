@@ -4,11 +4,12 @@ import { SimplePaginatorContract } from "@ioc:Adonis/Lucid/DatabaseQueryBuilder"
 import filterConfig from 'Config/filter';
 import { QueryWrapperOptionsDto } from 'App/Common/Dto/query-wrapper-options.dto';
 
-// The idea of this decorator is to add `standardFilters` scope to query builders
+// The idea of this is to add `standardFilters` scope to query builders
 // Which would accept standardized filters from client, and extend query builder appropriately
 // For now, just orderBy and search are added. However, this will probably need to be extended
 // On bigger projects, q params will not be enough and we will have standardized json structure with ability to override filters
 // On even bigger project, we would need to use document oriented db and adapt this.
+// Similarly, standardized pagination is added and can be expanded
 
 export class QueryWrapper<Model> {
   private fallbackFilters: FilterQueryDto;
