@@ -11,16 +11,16 @@ export class GlobalErrorResponseDto {
 
   public stack?: string; // later we could add a stack parser
 
-  public static fromHttpError (error: HttpError): GlobalErrorResponseDto{
+  public static fromHttpError (error: HttpError | Error): GlobalErrorResponseDto{
     const instance = new GlobalErrorResponseDto();
-    if (error.status >= ResponseCodeEnum.InternalServerError) {
+    if (error[`status`] >= ResponseCodeEnum.InternalServerError) {
       if (Env.get(`NODE_ENV`) === `production`) {
         instance.message = `error.internalServerError`;
         return instance;
       }
     }
     instance.message = error.message;
-    instance.data = error.data;
+    instance.data = error[`data`];
     instance.stack = error.stack;
     return instance;
   }

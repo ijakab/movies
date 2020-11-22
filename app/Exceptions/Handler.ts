@@ -15,7 +15,6 @@
 
 import Logger from '@ioc:Adonis/Core/Logger';
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler';
-import { HttpError } from 'App/Exceptions/HttpError';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { GlobalErrorResponseDto } from 'App/Common/Dto/global-error-response.dto';
 import { ResponseCodeEnum } from 'App/Enum/response-code.enum';
@@ -27,9 +26,9 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
   // eslint-disable-next-line @typescript-eslint/require-await
   public async handle (error: any, {response}: HttpContextContract): Promise<void> {
-    if (error instanceof HttpError) {
+    if (error instanceof Error) {
       return response
-        .status(error.status || ResponseCodeEnum.InternalServerError)
+        .status(error[`status`] || ResponseCodeEnum.InternalServerError)
         .send(GlobalErrorResponseDto.fromHttpError(error));
     }
   }
