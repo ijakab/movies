@@ -26,6 +26,12 @@ App should be served on port 8000
 
 1. run `node ace serve` to serve application on port specified in .env
 
+## Testing
+
+To run automatic test, run `npm run test`
+
+It will run basic tests on created routes
+
 ## Additional instructions
 
 There are multiple Readme.md files in code, and comments trying to explain what is being done.
