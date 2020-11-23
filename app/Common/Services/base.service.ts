@@ -23,7 +23,7 @@ export abstract class BaseService <ModelType extends typeof ExtendedModel, Model
       .standardPagination(queryParams);
   }
 
-  public async create (userInput: any): Promise<Model> {
+  public async create (userInput: Record<string, never>): Promise<Model> {
     const instance = new this.model();
     instance.merge(userInput);
     // @ts-ignore

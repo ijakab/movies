@@ -36,23 +36,23 @@ Code is split into modules and common module. Each module will provide specific 
 
 ### Context-dependent provisioner
 
-Request first comes to request handlers - middleware and controllers. These are HttpContext dependent, so we do not write any logic there - they will delegate work elsewhere.
+Request first comes to request handlers - middlewares and controllers. These are HttpContext dependent, so we do not write any logic there - they will delegate work elsewhere.
 
 Controllers need to be treated simply as a way for a world to communicate with logic, never have logic itself. Any logic must be context-independent, in order to work when context changes.
 
-In other words, if we build a specific logic on Http controllers, we would have a hard time running it on custom event, as a response to other action, custom command etc, scheduled job etc.
+In other words, if we build a specific logic on Http controllers, we would have a hard time running it on custom event, as a response to other action, custom command, scheduled job etc.
 
-Those communicators with the world I call "context-dependent" provisioner, and they can naver provide logic.
+Those communicators with the world I call "context-dependent provisioner", and they should not provide any business logic.
 
 ### Logic provisioners (Services)
 
-Services sit in between context-dependent provisioner (in this case, http controllers) and models, and provide most of the logic. They also use validators to decouple validation logic.
+Services sit in between context-dependent provisioner (in this case, http controllers and middlewares) and models, and provide most of the logic. They also use validators to decouple validation logic.
 
 Services must always remain context independent - if they need some outside input, it will be passed as argument, not the state. That way we ensure reusability, in case code ever needs to run outside of (in this case) http lifecycle - e.g. cron job
 
-Services can have a state, which defines a single service instance. IN this app, service state is database transaction - all operations will use a single database transaction. This is an example but it can grow to - permission scopes, validation scopes etc.
+Services can have a state, which defines a single service instance. In this app, service state is database transaction - all operations will use a single database transaction. This is an example, but it can grow - permission scopes, validation scopes etc.
 
-All states need to be modifiable and even need to be able to turn off - e.g. service should work weather or not it is provided database transaction.
+All states need to be modifiable and even be able to turn off - e.g. service should work weather or not it is provided database transaction.
 
 Service caller (context dependent provisioners) are responsible for defining service state - service does not know when a single "something" (be it request or event or something else) is over, therefore it cannot commit database transaction
 
@@ -60,7 +60,7 @@ Service caller (context dependent provisioners) are responsible for defining ser
 
 Models are directly tied to database, and provide abstraction for common database operations, relationship loading, data serialization etc.
 
-However, they are consistet mostly of static functions, and it would not be easy to implement logic provider states, therefore they are not used directly, but rather wrapped inside services, that can be instantiated whenever context provider needs it, and different instances will not collide with each other.
+However, they consist mostly of static functions, and it would not be easy to implement logic provider states, therefore they are not used directly, but rather wrapped inside services, that can be instantiated whenever context provider needs it, and different instances will not collide with each other.
 
 In simpler words, we need services as they can be instantiated, and two different requests will use different service instance.
 
@@ -74,4 +74,4 @@ While not perfect, in my opinion best of node.js frameworks. Some key benefits o
     - much better performant when serializing queries (typeorm would often destroy the cpu on bigger data chunks).
         - That is because it handles queries differently. It does come at a cost - ordering by a field nested in a relation can be tricky.
 - Much faster boot time - explained in routes/Readme
-- Built-in way to execute commands
+- Built-in way to execute commands (more advanced and integrated than npm commands)
