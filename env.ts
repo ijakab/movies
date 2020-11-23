@@ -29,7 +29,5 @@ export default Env.rules({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   DB_NAME: Env.schema.string(),
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  DB_DEBUG: Env.schema.boolean(),
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   OMDB_API_KEY: Env.schema.string(),
 });
