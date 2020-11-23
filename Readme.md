@@ -74,3 +74,4 @@ While not perfect, in my opinion best of node.js frameworks. Some key benefits o
     - much better performant when serializing queries (typeorm would often destroy the cpu on bigger data chunks).
         - That is because it handles queries differently. It does come at a cost - ordering by a field nested in a relation can be tricky.
 - Much faster boot time - explained in routes/Readme
+- Built-in way to execute commands
